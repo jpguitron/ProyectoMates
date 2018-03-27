@@ -1,5 +1,4 @@
 import estado as funct
-
 st = []
 f = open ('archivo.txt','r') #Archivo que se va a leer
 lines = f.read().split("\n") #Leer el archivo y colocar todos las lineas en un vector dividiendo por el caracter \n que es salto de linea
@@ -16,17 +15,22 @@ def getState(stat):
 	return null
 
 def checkS(str):
-	checkR(str,getState(initial),0,"")
+	checkR(str,getState(initial),0,"",255)
 	return
 
-def checkR(str, state,cont,a):
+def checkR(str, state,cont,a,ttl):
 	t=state.getTransitions()
 	#print (state.getEstado())
-	if cont<len(str):
+	for x in range(0,len(t),2):
+		#print(t[x], " == ",str[cont])
+		if t[x] == "&":
+			checkR(str,getState(t[x+1]),cont,a+state.getEstado(),ttl-1)
+
+	if cont<len(str) and ttl>0:
 		for x in range(0,len(t),2):
 			#print(t[x], " == ",str[cont])
-			if t[x] == str[cont] or t[x] == "&":
-				checkR(str,getState(t[x+1]),cont+1,a+state.getEstado())
+			if t[x] == str[cont]:
+				checkR(str,getState(t[x+1]),cont+1,a+state.getEstado(),ttl-1)
 	else:
 		if state.getFinal() == 1:
 			print("Se acepta la cadena tomando el camino: ")
