@@ -7,34 +7,34 @@ class Transition:
 	def getState(self):
 		return self.state
 
-class Estado:		
+class State:
 
-	def __init__(self,estado):
-		self.estado = estado
+	def __init__(self,state):
+		self.state = state
 		self.transitions = []
-		self.final = 0		
+		self.final = 0
 
 	def addTransition(self, trans):
 		t = trans.split(":")
 		transition = Transition(t[0],t[1])
 		self.transitions.append(transition)
-	
+
 	def setFinal(self):
 		self.final = 1
 
 	def getFinal(self):
 		return self.final
-		
-	def getEstado(self):
-		return self.estado
-	
+
+	def getState(self):
+		return self.state
+
 	def getTransitions(self):
 		t = []
 		for transition in self.transitions:
 			t.append(transition.getInp())
 			t.append(transition.getState())
-		return t  	
-		
+		return t
+
 	def printTransitions(self):
 		for transition in self.transitions:
-			print(transition.getInp(), "->",transition.getState())	
+			print(transition.getInp(), "->",transition.getState())

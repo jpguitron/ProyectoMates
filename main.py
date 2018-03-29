@@ -1,6 +1,6 @@
-from functions import getState, checkS, readFile, printResult
+from functions import getState, check, readFile, printResult
 
 readFile('file.txt')
-string = input("ingresa la cadena que quieres probar: ")
-checkS(string)
+string = input("Enter the string you want to try: ")
+check(string)
 printResult()
