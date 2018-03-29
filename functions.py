@@ -24,7 +24,7 @@ def check(str):
 	checkR(str,getState(initial),0,a,255)#String to check, state to analize, string counter, path, time to live
 	return
 
-def checkR(str, state, cont, a, ttl):#cadena, estado a analizar, contador de la palabra, camino, time to live
+def checkR(str, state, cont, a, ttl):#cadena, estado a analizar, contador de la palabra, camino, time to live (used in the case of infinite loop)
 	t=state.getTransitions()
 	for x in range(0,len(t),2):
 		if t[x] == "&":
@@ -58,19 +58,20 @@ def printResult():
 		print("\nThe string is rejected")
 	return
 
-########################Read the file#########
+########################Read the file###################
 def readFile(file):
 
 	global st, states, alphabet, initial, final, transitions
 
-	f = open (file,'r') #Archivo que se va a leer
-	lines = f.read().split("\n") #Leer el archivo y colocar todos las lineas en un vector dividiendo por el caracter \n que es salto de linea
-	f.close() #Cierra el archivo
+	f = open (file,'r')
+	lines = f.read().split("\n") #Read the file and divide in lines
+	f.close()
 
-	states = lines[0].split(",") #Divide poniendolos en un vector
-	alphabet = lines[1].split(",") #Divide el alfabeto poniendolo en un vector
-	initial = lines[2] #Guarda el estado inicial en una variables
-	final = lines[3].split(",") #Guarda los estados iniciales en un vector
+	###################Divide the lines in characters####
+	states = lines[0].split(",")
+	alphabet = lines[1].split(",")
+	initial = lines[2]
+	final = lines[3].split(",")
 
 	for x in range(4, len(lines)-1):
 		transitions.append(lines[x])
